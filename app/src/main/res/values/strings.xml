@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 앱 이름이 정해지면 바꾼다. gradle.properties 의 submission.appName 도 함께 바꾼다. -->
+    <string name="app_name">Springboard</string>
+</resources>

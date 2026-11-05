@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 차량 화면은 어두운 배경 + 높은 대비 (Pleos UI 가이드: 대비 4.5:1 이상) -->
+    <color name="background">#FF0E1013</color>
+    <color name="ic_launcher_background">#FF13233A</color>
+    <color name="ic_launcher_foreground">#FF7CC4FF</color>
+</resources>

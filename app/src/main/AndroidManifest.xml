@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      권한 원칙 (Pleos 앱 보안 가이드): 앱 기능에 꼭 필요한 권한만 남긴다.
+      아이디어가 정해지면 쓰지 않는 SDK 의 권한은 지운다.
+      Pleos App Market 에 실제 출시할 때 Vehicle SDK 권한은 사전 협의·승인이 필요하다.
+    -->
+
+    <!-- Pleos Vehicle SDK (protectionLevel=normal, 설치 시 자동 허용) -->
+    <!-- Odometer: 누적 주행거리·트립 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+    <!-- Door: 도어 열림 상태 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DOORS" />
+
+    <!-- Pleos NaviHelper SDK: 현재 위치·목적지 조회, 경로 요청 -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
+
+    <!-- Pleos TextToSpeech / SpeechToText SDK: 차량 음성 서비스가 마이크를 직접 열므로 RECORD_AUDIO 는 필요 없다 -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+
+    <!-- AAOS Car API: GEAR_SELECTION (normal) -->
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <!-- AAOS Car API: PERF_VEHICLE_SPEED (dangerous → 앱 안에서 런타임 요청) -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+
+    <!--
+      차량(AAOS) 앱이지만, GPU 가 없어 Pleos 에뮬레이터를 못 띄우는 팀원도 데모 모드로 개발할 수 있도록
+      일반 폰/태블릿에도 설치되게 한다. 라이브러리가 required=true 로 선언해도 이 값으로 덮어쓴다.
+    -->
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="false"
+        tools:replace="android:required" />
+
+    <!-- Android 11+ 패키지 공개 범위: Pleos 차량 서비스 설치 여부 확인용 -->
+    <queries>
+        <package android:name="ai.pleos.playground.service.vehicle" />
+    </queries>
+
+    <application
+        android:name=".SpringboardApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Springboard">
+
+        <!-- AAOS Car 라이브러리. 차량이 아닌 기기에서도 설치되도록 required=false -->
+        <uses-library
+            android:name="android.car"
+            android:required="false" />
+
+        <!--
+          CCP(로터리 다이얼) 미지원 선언. 사용자 설치 앱은 CCP 지원이 선택이지만,
+          미지원이면 모든 필수 조작을 터치만으로 끝낼 수 있어야 한다 (Pleos CCP 개발 가이드).
+        -->
+        <meta-data
+            android:name="com.hmg.rotary.ROTARY_SUPPORTED"
+            android:value="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|uiMode"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.Springboard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+              DO(Distraction Optimized) 선언: 주행 중에도 이 화면을 띄운다.
+              대신 앱이 CarUxRestrictions 를 직접 따라야 한다 → SpringboardRoot 가 주행 규제 중에는
+              DrivingScreen(큰 글씨·최소 정보·음성 우선)으로 바꾼다.
+              "주차 중에만 쓰는 앱"으로 갈 거면 이 meta-data 를 지운다. 그러면 주행 중에는 OS 가 앱을 가린다.
+              판단 기준: docs/02-pleos/driving-safety-and-ux.md
+            -->
+            <meta-data
+                android:name="distractionOptimized"
+                android:value="true" />
+
+            <!--
+              Gleo Action 예시 (component = "activity").
+              assets/schema.json 을 넣고 Pleos 승인을 받은 뒤 function 이름으로 action 을 등록한다.
+              예시 스키마: docs/templates/gleo-schema.example.json
+
+            <intent-filter>
+                <action android:name="OPEN_TRIP_DETAIL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            -->
+        </activity>
+
+        <!--
+          Gleo Action 예시 (component = "service" → sendBroadcast 로 들어온다).
+          Gleo(다른 앱)가 보내므로 exported=true 가 필요하다. 쓸 때만 주석을 푼다.
+
+        <receiver
+            android:name=".platform.gleo.GleoActionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="GET_TRIP_SUMMARY" />
+                <action android:name="SET_ALERT_LEVEL" />
+            </intent-filter>
+        </receiver>
+        -->
+    </application>
+
+</manifest>
