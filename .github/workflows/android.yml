@@ -55,6 +55,11 @@ jobs:
       - name: Lint (리포트만, 빌드는 막지 않음)
         run: ./gradlew :app:lintDebug
 
+      - name: Lint 결과 요약
+        run: |
+          report=app/build/reports/lint-results-debug.txt
+          if [ -f "$report" ]; then cat "$report"; else echo "lint 텍스트 리포트 없음"; fi
+
       - name: Build release APK (keystore 없으면 서명되지 않은 APK)
         run: ./gradlew --stacktrace :app:assembleRelease
 
