@@ -1,6 +1,8 @@
 name: Android CI
 
-# 코드가 바뀌면 빌드·테스트한다. 문서만 바뀌면 건너뛴다 (단, core 테스트가 읽는 docs/templates 는 포함).
+# push: 코드가 바뀌면 빌드·테스트한다. 문서만 바뀌면 건너뛴다 (core 테스트가 읽는 docs/templates 는 포함).
+# pull_request: 항상 실행한다. main 보호 규칙에서 이 검사("Build & test")를 필수로 걸어도
+#               문서만 바꾼 PR 이 "대기 중"으로 멈추지 않게 하기 위함이다.
 on:
   push:
     branches: ["**"]
@@ -10,11 +12,6 @@ on:
       - "!docs/**"
       - "docs/templates/**"
   pull_request:
-    paths:
-      - "**"
-      - "!**.md"
-      - "!docs/**"
-      - "docs/templates/**"
   workflow_dispatch:
 
 concurrency:
