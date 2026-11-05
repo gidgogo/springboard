@@ -21,6 +21,7 @@
 | **[schedule-and-roles.md](01-plan/schedule-and-roles.md)** | 2인 팀 10일 일정표(D-10 → 마감), 역할 분담, 2차 PT까지 계획 |
 | **[idea-selection.md](01-plan/idea-selection.md)** | 아이디어 발굴 → 차량 데이터 매핑 → 채점표 → 확정 절차 |
 | [competitor-map.md](01-plan/competitor-map.md) | 공개 저장소로 보이는 다른 참가팀 주제 지도 (겹침 피하기) |
+| [interview-guide.md](01-plan/interview-guide.md) | 기획 배경·사업성 근거를 만드는 15분 사용자 인터뷰 질문과 정리 틀 |
 | **[proposal-template.md](01-plan/proposal-template.md)** | 접수양식(기획서) 8개 항목 작성 틀과 예시 문장 |
 | [business-metrics.md](01-plan/business-metrics.md) | 타깃·예상 MAU·Retention·확대 계획을 근거 있게 쓰는 방법 |
 
