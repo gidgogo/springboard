@@ -1,0 +1,58 @@
+{
+  "packageName": "com.springboard.app",
+  "appDescription": "An in-car companion app that helps drivers and passengers during a trip.",
+  "invokeWord": "스프링보드",
+  "version": "0.1.0",
+  "actionCalls": [
+    {
+      "type": "function",
+      "function": {
+        "name": "GET_TRIP_SUMMARY",
+        "description": "Get a short summary of the current trip, such as distance driven and time elapsed.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "component": "service"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "SET_ALERT_LEVEL",
+        "description": "Change how often the app gives spoken alerts while driving.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string",
+              "description": "How often spoken alerts are given.",
+              "enum": ["low", "normal", "high"]
+            }
+          },
+          "required": ["level"]
+        },
+        "component": "service"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "OPEN_TRIP_DETAIL",
+        "description": "Open the detail screen of a past trip that matches the given date.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "Date of the trip in ISO 8601 date format."
+            }
+          },
+          "required": ["date"]
+        },
+        "component": "activity"
+      }
+    }
+  ]
+}
