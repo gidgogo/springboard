@@ -85,10 +85,12 @@ android {
     }
 
     lint {
-        // 초기 단계: 리포트만 남기고 빌드는 막지 않는다. CI 가 리포트를 아티팩트로 올린다.
+        // 초기 단계: 리포트만 남기고 빌드는 막지 않는다. CI 로그에 텍스트로 찍고, HTML 은 아티팩트로 올린다.
         // 제출 전에는 docs/05-submission/submission-checklist.md 에 따라 리포트를 한 번 정리한다.
         abortOnError = false
         checkReleaseBuilds = true
+        textReport = true
+        textOutput = file("stdout")
     }
 }
 
