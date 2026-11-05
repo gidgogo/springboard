@@ -1,0 +1,56 @@
+# 버전 선정 기준
+# - AGP / Gradle / Kotlin: Pleos 공식 샘플(AGP 8.8.x, Gradle 8.10.2)과 같은 조합.
+# - Pleos SDK: 2026-10-19 릴리스 노트 기준 최신 (Vehicle 2.3.2, NaviHelper 3.0.5, TTS/STT 3.3.1, FusedLocation 1.1.3).
+#   https://document.pleos.ai/docs/pleos-only/release-note/sdk-261015
+# 버전을 올릴 때는 docs/04-dev/build-and-release.md 의 "버전 올리기" 절차를 따른다.
+
+[versions]
+agp = "8.8.2"
+kotlin = "2.0.21"
+coreKtx = "1.13.1"
+lifecycle = "2.8.6"
+activityCompose = "1.9.2"
+composeBom = "2024.09.03"
+coroutines = "1.9.0"
+kotlinxSerialization = "1.7.3"
+junit = "4.13.2"
+
+# Pleos Connect SDK
+pleosVehicle = "2.3.2"
+pleosNaviHelper = "3.0.5"
+pleosTextToSpeech = "3.3.1"
+pleosSpeechToText = "3.3.1"
+pleosFusedLocation = "1.1.3"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+pleos-vehicle = { group = "ai.pleos.playground", name = "Vehicle", version.ref = "pleosVehicle" }
+pleos-navi-helper = { group = "ai.pleos.playground", name = "NaviHelper", version.ref = "pleosNaviHelper" }
+pleos-text-to-speech = { group = "ai.pleos.playground", name = "TextToSpeech", version.ref = "pleosTextToSpeech" }
+pleos-speech-to-text = { group = "ai.pleos.playground", name = "SpeechToText", version.ref = "pleosSpeechToText" }
+# FusedLocation은 아직 쓰지 않는다. 위치는 NaviHelper.getCurrentLocationInfo()로 얻을 수 있다.
+# 필요하면 app/build.gradle.kts 에 implementation(libs.pleos.fused.location) 을 추가한다.
+pleos-fused-location = { group = "ai.pleos.playground", name = "FusedLocation", version.ref = "pleosFusedLocation" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
