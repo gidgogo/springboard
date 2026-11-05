@@ -129,6 +129,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application), M
         speak(GREETING)
     }
 
+    override fun repeatLastMessage() {
+        speak(lastSpoken)
+    }
+
     override fun listenOnce() {
         container.tts.stop()
         if (!container.stt.listen()) log("듣기를 시작할 수 없음 (STT ${container.stt.status.value})")
@@ -159,7 +163,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), M
             VoiceCommandMatcher.Match.No -> speak("알겠습니다. 다음에 할게요.")
             VoiceCommandMatcher.Match.Cancel -> speak("취소했어요.")
             is VoiceCommandMatcher.Match.Command -> when (match.name) {
-                "REPEAT" -> speak(lastSpoken)
+                "REPEAT" -> repeatLastMessage()
                 "STATUS" -> speak(statusSentence())
             }
             VoiceCommandMatcher.Match.Unknown -> speak("잘 못 들었어요. 다시 말씀해 주세요.")
@@ -188,21 +192,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application), M
     override fun startDemo(scenarioId: String) {
         if (!BuildConfig.DEBUG) return
         val scenario = DemoScenarios.byId(scenarioId) ?: return
+        // 이전 데모는 멈추기만 한다. 화면 상태(demoFrame)는 새 데모의 첫 장면이 바로 덮어쓴다.
         demoJob?.cancel()
         demoJob = viewModelScope.launch {
-            try {
-                DemoScenarioPlayer.play(scenario, loop = true).collect { frame -> demoFrame.value = frame }
-            } finally {
-                demoFrame.value = null
-            }
+            DemoScenarioPlayer.play(scenario, loop = true).collect { frame -> demoFrame.value = frame }
         }
         log("데모 시작: ${scenario.title}")
     }
 
     override fun stopDemo() {
-        if (demoJob == null) return
-        demoJob?.cancel()
+        val job = demoJob ?: return
+        job.cancel()
         demoJob = null
+        demoFrame.value = null
         log("데모 중지")
     }
 

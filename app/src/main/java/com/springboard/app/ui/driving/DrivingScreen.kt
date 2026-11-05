@@ -83,7 +83,7 @@ fun DrivingScreen(state: MainUiState, actions: MainActions) {
                 onClick = actions::listenOnce,
                 enabled = state.sttStatus == PleosSpeechToText.Status.READY,
             )
-            CarButton(text = "다시 듣기", onClick = actions::speakTest, primary = false)
+            CarButton(text = "다시 듣기", onClick = actions::repeatLastMessage, primary = false)
             if (state.isDebugBuild && state.demo != null) {
                 CarButton(text = "데모 종료", onClick = actions::stopDemo, primary = false)
             }

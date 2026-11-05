@@ -43,6 +43,7 @@ interface MainActions {
     fun readVehicle()
     fun connectVoice()
     fun speakTest()
+    fun repeatLastMessage()
     fun listenOnce()
     fun connectNavi()
     fun requestNaviLocation()
@@ -55,6 +56,7 @@ object NoOpActions : MainActions {
     override fun readVehicle() = Unit
     override fun connectVoice() = Unit
     override fun speakTest() = Unit
+    override fun repeatLastMessage() = Unit
     override fun listenOnce() = Unit
     override fun connectNavi() = Unit
     override fun requestNaviLocation() = Unit
