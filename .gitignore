@@ -1,0 +1,36 @@
+# --- Gradle / Android Studio ---
+.gradle/
+build/
+**/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+*.iml
+.idea/
+.kotlin/
+
+# --- 서명 키 (절대 커밋 금지) ---
+keystore.properties
+*.jks
+*.keystore
+
+# --- 빌드 산출물 ---
+# 제출용 APK는 apk/ 폴더에만 둔다 (apk/README.md 참고).
+*.apk
+*.aab
+!apk/*_release.apk
+output-metadata.json
+
+# --- 로그 / 녹화 / 임시 ---
+*.log
+*.hprof
+*.h264
+screen_*.png
+.DS_Store
+Thumbs.db
+
+# --- 개인 메모·비밀값 ---
+.env
+.env.*
+secrets.properties
