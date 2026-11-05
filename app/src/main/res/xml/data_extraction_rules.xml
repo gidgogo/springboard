@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pleos 앱 보안 가이드: 쓰지 않는 자동 백업은 끈다 (Pleos Connect 는 Google 백업이 동작하지 않지만,
+  다른 Android 기기에 같은 앱이 깔릴 경우까지 고려). Android 12+ 클라우드 백업·기기 간 전송 모두 제외한다.
+  Android 11 이하는 AndroidManifest.xml 의 android:allowBackup="false" 가 같은 역할을 한다.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+    </device-transfer>
+</data-extraction-rules>

@@ -91,6 +91,9 @@ android {
         abortOnError = false
         checkReleaseBuilds = true
         textReport = true
+        // 버전은 Pleos 공식 샘플과 같은 조합(AGP 8.8.x 등)에 일부러 고정했다.
+        // "더 새 버전이 있다" 알림은 끄고, 올릴 때는 docs/04-dev/build-and-release.md 의 절차를 따른다.
+        disable += setOf("GradleDependency", "AndroidGradlePluginVersion", "OldTargetApi")
     }
 }
 
